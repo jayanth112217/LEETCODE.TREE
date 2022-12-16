@@ -1,0 +1,67 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+bool isSameTree(struct TreeNode* p, struct TreeNode* q){
+    struct TreeNode* root1=p;
+    struct TreeNode* root2=p;
+    struct TreeNode* top1=q;
+    struct TreeNode* top2=q;
+    if(p==NULL && q==NULL){
+        return true;
+    }
+    if(p!=NULL && q==NULL){
+        return false;
+    }
+    if(p==NULL && q!=NULL){
+        return false;
+    }
+while((root1!=NULL && top1!=NULL) || (root2!=NULL && top2!=NULL)){
+    if(root1!=NULL && root2!=NULL || top1!=NULL && top2!=NULL){
+if((root1->left!=NULL && top1->left==NULL) || (root2->right!=NULL && top2->right==NULL)){
+     return false;
+}
+if((root1->left==NULL && top1->left!=NULL) || (root2->right==NULL && top2->right!=NULL)){
+    return false;
+}
+if(root1->val!=top1->val || root2->val!=top2->val){
+    return false;
+}
+    }
+    if(root1!=NULL){
+  root1=root1->left;
+    }
+    if(root2!=NULL){
+  root2=root2->right;
+    }
+    if(top1!=NULL){
+  top1=top1->left;
+    }
+    if(top2!=NULL){
+  top2=top2->right;
+    }
+  }
+  if(root1!=NULL && top1!=NULL){
+      if(root1->val==top1->val){
+          return true;
+      }
+      return false;
+  }
+  if(root2!=NULL && top2!=NULL){
+      if(root2->val==top2->val){
+          return true;
+      }
+      return false;
+  }
+  if((root1!=NULL && top1==NULL) || (root1==NULL && top1!=NULL)){
+      return false;
+  }
+  if((root2!=NULL && top2==NULL) || (root2==NULL && top2!=NULL)){
+      return false;
+  }
+  return true;
+}
